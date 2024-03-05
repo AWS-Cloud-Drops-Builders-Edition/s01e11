@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  title: API de automação de reuniões. 
+  version: 1.0.0
+  description: Esta API sabe como listar reuniões, listar os itens de ação de uma reunião específica e enviar os itens de ação por email.
+paths:
+  /meetings:
+    get:
+      summary: Retorna uma lista de reuniões do usuário com base em um período de datas
+      description: Retorna uma lista de reuniões do usuário com base em um período de datas.
+      operationId: getMeetings
+      parameters:
+        - name: startDate
+          in: path
+          description: StartDate
+          required: true
+          schema:
+            type: string
+        - name: endDate
+          in: path
+          description: EndDate
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Retorna a lista de reuniões em um determinado período. 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meetings:
+                    type: array
+                    items:
+                      type: integer
+                    description: Lista de reuniões.
+  /meetings/{meetingId}/summary:
+    get:
+      summary: Retorna o resumo de um determinada reunião. 
+      description: Retorna o sumário de uma reunião.
+      operationId: getMeetingSummary
+      parameters:
+        - name: meetingId
+          in: path
+          description: ID da reunião
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Sumário de uma reunião. 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    description: Sumário de uma reunião.
